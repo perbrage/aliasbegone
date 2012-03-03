@@ -42,8 +42,8 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 
 #nCrunch files
-*.crunchproject.local.xml
-*.crunchsolution.local.xml
+*.ncrunchproject*
+*.ncrunchsolution*
 
 #Project files
 [Bb]uild/
