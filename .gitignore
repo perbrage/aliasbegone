@@ -5,6 +5,7 @@
 #Visual Studio files
 *.[Oo]bj
 *.exe
+!NuGet.exe
 *.pdb
 *.user
 *.aps
@@ -47,6 +48,9 @@ _ReSharper*/
 
 #Project files
 [Bb]uild/
+
+# Don't include NuGet Packages
+packages/
 
 #Subversion files
 .svn
