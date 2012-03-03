@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <Extern href="stdidcmd.h"/>
+  <Extern href="vsshlids.h"/>
+  <Extern href="msobtnid.h"/>
+  <Extern href="VSDbgCmd.h" />
+  <Extern href="VsDebugGuids.h"/>
+
+  <Commands package="aliasBeGonePackage">
+
+    <Groups>
+      <Group guid="aliasBeGoneCommandSet" id="aliasBeGoneMenuGroup" priority="0x0600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_EDIT"/>
+      </Group>
+    </Groups>
+
+    <Buttons>
+      <Button guid="aliasBeGoneCommandSet" id="aliasBeGoneCommand" priority="0x0100">
+        <Parent guid="aliasBeGoneCommandSet" id="aliasBeGoneMenuGroup"/>
+        <Icon guid="guidOfficeIcon" id="msotcidToolbox" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <CommandName>aliasBeGoneCommand</CommandName>
+          <CanonicalName>AliasBeGone</CanonicalName>
+          <ButtonText>Alias be gone</ButtonText>
+          <MenuText>Alias be gone</MenuText>
+          <ToolTipText>Replaces all aliases for .NET CLR types</ToolTipText>
+        </Strings>
+      </Button>
+    </Buttons>
+
+  </Commands>
+
+  <KeyBindings>
+    <KeyBinding guid="aliasBeGoneCommandSet" id="aliasBeGoneCommand" editor="guidVSStd97" mod1="Control" key1="k" mod2="Control" key2="j"  />
+  </KeyBindings>
+
+  <Symbols>
+    <GuidSymbol name="aliasBeGonePackage" value="{bc73d75b-bfb5-4217-841f-7c8c6a059fa4}" />
+    <GuidSymbol name="aliasBeGoneCommandSet" value="{7cb4948b-3d32-4495-aa76-a0e72553207e}">
+      <IDSymbol name="aliasBeGoneMenuGroup" value="0x0200" />
+      <IDSymbol name="aliasBeGoneCommand" value="0x0201" />
+    </GuidSymbol>
+  </Symbols>
+
+</CommandTable>
