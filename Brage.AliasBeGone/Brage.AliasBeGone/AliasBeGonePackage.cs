@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.ComponentModel.Design;
+using System.Windows;
 using Brage.AliasBeGone.Infrastructure;
 using Brage.AliasBeGone.PatternMatching;
 using EnvDTE80;
@@ -21,7 +22,8 @@ namespace Brage.AliasBeGone
     {
         private const String USING_SYSTEM = "using System;";
         private readonly PatternMatcher _patternMatcher;
-        private OleMenuCommand _aliasBeGoneMenuItem;
+        private OleMenuCommand _aliasBeGoneConvertMenuItem;
+        private OleMenuCommand _aliasBeGoneInstallSnippetsMenuItem;
 
         public AliasBeGonePackage()
         {
@@ -37,26 +39,35 @@ namespace Brage.AliasBeGone
             if (menuCommandService == null)
                 return;
 
-            BuildAliasBeGoneCommand(menuCommandService);
+            BuildAliasBeGoneConvertCommand(menuCommandService);
+            BuildAliasBeGoneInstallSnippetsCommand(menuCommandService);
         }
 
-        private void BuildAliasBeGoneCommand(IMenuCommandService menuCommandService)
+        private void BuildAliasBeGoneConvertCommand(IMenuCommandService menuCommandService)
         {
-            var aliasBeGoneCommand = new CommandID(new Guid(Constants.ALIAS_BE_GONE_COMMANDSET_ID_STRING), Constants.ALIAS_BE_GONE_COMMAND);
+            var aliasBeGoneConvertCommand = new CommandID(new Guid(Constants.ALIAS_BE_GONE_COMMANDSET_ID_STRING), Constants.ALIAS_BE_GONE_CONVERT_COMMAND);
 
-            _aliasBeGoneMenuItem = new OleMenuCommand(OnExecute, aliasBeGoneCommand);
-            _aliasBeGoneMenuItem.BeforeQueryStatus += OnBeforeQueryStatus;
+            _aliasBeGoneConvertMenuItem = new OleMenuCommand(OnExecuteConvert, aliasBeGoneConvertCommand);
+            _aliasBeGoneConvertMenuItem.BeforeQueryStatus += OnBeforeQueryStatus;
 
-            menuCommandService.AddCommand(_aliasBeGoneMenuItem); 
+            menuCommandService.AddCommand(_aliasBeGoneConvertMenuItem); 
         }
+
+        private void BuildAliasBeGoneInstallSnippetsCommand(IMenuCommandService menuCommandService)
+        {
+            var aliasBeGoneInstallSnippetsCommand = new CommandID(new Guid(Constants.ALIAS_BE_GONE_COMMANDSET_ID_STRING), Constants.ALIAS_BE_GONE_INSTALL_SNIPPETS_COMMAND);
+            _aliasBeGoneInstallSnippetsMenuItem = new OleMenuCommand(OnExecuteInstallSnippets, aliasBeGoneInstallSnippetsCommand);
+            menuCommandService.AddCommand(_aliasBeGoneInstallSnippetsMenuItem);
+        }
+
 
         private void OnBeforeQueryStatus(Object sender, EventArgs e)
         {
             var dte = GetService<SDTE, DTE2>();
-            _aliasBeGoneMenuItem.Enabled = dte.ActiveWindow.Caption.EndsWith(".cs");
+            _aliasBeGoneConvertMenuItem.Enabled = dte.ActiveWindow.Caption.EndsWith(".cs");
         }
 
-        private void OnExecute(Object sender, EventArgs e)
+        private void OnExecuteConvert(Object sender, EventArgs e)
         {
             var userData = GetUserData();
 
@@ -67,6 +78,16 @@ namespace Brage.AliasBeGone
             var text = textView.TextBuffer.CurrentSnapshot.GetText();
 
             Apply(_patternMatcher.Search(text), textView);
+        }
+
+        private void OnExecuteInstallSnippets(Object sender, EventArgs e)
+        {
+            var messageBoxResult = MessageBox.Show("You are about to install Alias Be Gone snippets in your personal snippets folder. These snippets are optional functionality and Alias Be Gone will work without them! Caution! These snippets will NOT be uninstalled if you remove Alias Be Gone extension. ", "Install Alias Be Gone Snippets?", MessageBoxButton.OKCancel);
+
+            if (messageBoxResult == MessageBoxResult.Cancel)
+                return;
+
+            MessageBox.Show("Installed");
         }
 
         private void Apply(IEnumerable<PatternHit> patternHits, ITextView textView)

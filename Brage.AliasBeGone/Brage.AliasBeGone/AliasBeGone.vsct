@@ -16,32 +16,46 @@
     </Groups>
 
     <Buttons>
-      <Button guid="aliasBeGoneCommandSet" id="aliasBeGoneCommand" priority="0x0100">
+      <Button guid="aliasBeGoneCommandSet" id="aliasBeGoneConvertCommand" priority="0x0100">
         <Parent guid="aliasBeGoneCommandSet" id="aliasBeGoneMenuGroup"/>
         <Icon guid="guidOfficeIcon" id="msotcidToolbox" />
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <Strings>
-          <CommandName>aliasBeGoneCommand</CommandName>
-          <CanonicalName>AliasBeGone</CanonicalName>
+          <CommandName>aliasBeGoneConvertCommand</CommandName>
+          <CanonicalName>AliasBeGoneConvertCommand</CanonicalName>
           <ButtonText>Alias be gone</ButtonText>
           <MenuText>Alias be gone</MenuText>
           <ToolTipText>Replaces all aliases for .NET CLR types</ToolTipText>
         </Strings>
       </Button>
+
+      <Button guid="aliasBeGoneCommandSet" id="aliasBeGoneInstallSnippetsCommand" priority="0x0200">
+        <Parent guid="aliasBeGoneCommandSet" id="aliasBeGoneMenuGroup"/>
+        <Icon guid="guidOfficeIcon" id="msotcidToolbox" />
+        <Strings>
+          <CommandName>aliasBeGoneInstallSnippetsCommand</CommandName>
+          <CanonicalName>AliasBeGoneInstallSnippetsCommand</CanonicalName>
+          <ButtonText>Install snippets</ButtonText>
+          <MenuText>Install snippets</MenuText>
+          <ToolTipText>Installs Alias Be Gone snippets into current users personal snippets folder</ToolTipText>
+        </Strings>
+      </Button>
+
     </Buttons>
 
   </Commands>
 
   <KeyBindings>
-    <KeyBinding guid="aliasBeGoneCommandSet" id="aliasBeGoneCommand" editor="guidVSStd97" mod1="Control" key1="k" mod2="Control" key2="j"  />
+    <KeyBinding guid="aliasBeGoneCommandSet" id="aliasBeGoneConvertCommand" editor="guidVSStd97" mod1="Control" key1="k" mod2="Control" key2="j"  />
   </KeyBindings>
 
   <Symbols>
     <GuidSymbol name="aliasBeGonePackage" value="{bc73d75b-bfb5-4217-841f-7c8c6a059fa4}" />
     <GuidSymbol name="aliasBeGoneCommandSet" value="{7cb4948b-3d32-4495-aa76-a0e72553207e}">
       <IDSymbol name="aliasBeGoneMenuGroup" value="0x0200" />
-      <IDSymbol name="aliasBeGoneCommand" value="0x0201" />
+      <IDSymbol name="aliasBeGoneConvertCommand" value="0x0201" />
+      <IDSymbol name="aliasBeGoneInstallSnippetsCommand" value="0x0202" />
     </GuidSymbol>
   </Symbols>
 
