@@ -45,6 +45,7 @@ _ReSharper*/
 #nCrunch files
 *.ncrunchproject*
 *.ncrunchsolution*
+nCrunchTemp*
 
 #Project files
 [Bb]uild/
