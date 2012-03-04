@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.ComponentModel.Design;
 using System.Windows;
@@ -21,13 +23,20 @@ namespace Brage.AliasBeGone
     internal sealed class AliasBeGonePackage : PackageBase
     {
         private const String USING_SYSTEM = "using System;";
+        private const String SNIPPETS_NAMESPACE = "Brage.AliasBeGone.Snippets";
+        
         private readonly PatternMatcher _patternMatcher;
+        private readonly SnippetsManager _snippetsManager;
+
         private OleMenuCommand _aliasBeGoneConvertMenuItem;
         private OleMenuCommand _aliasBeGoneInstallSnippetsMenuItem;
 
         public AliasBeGonePackage()
         {
-            _patternMatcher = new PatternMatcher(new Configuration());
+            var configuration = new Configuration();
+            var resourceManager = new ResourceReader(SNIPPETS_NAMESPACE);
+            _patternMatcher = new PatternMatcher(configuration);
+            _snippetsManager = new SnippetsManager(configuration, resourceManager);
         }
 
         protected override void Initialize()
@@ -86,8 +95,36 @@ namespace Brage.AliasBeGone
 
             if (messageBoxResult == MessageBoxResult.Cancel)
                 return;
-            
-            MessageBox.Show("Installed");
+
+            if (!_snippetsManager.IsInstalled)
+            {
+                _snippetsManager.Install();
+                MessageBox.Show("Snippets are now installed");
+            }
+            else
+            {
+                _snippetsManager.Uninstall();
+                MessageBox.Show("Snippets are now uninstalled");
+            }
+
+        }
+
+        internal string GetFromResources(string resourceName)
+        {
+            var assembly = GetType().Assembly;
+            using (var stream = assembly.GetManifestResourceStream(resourceName))
+            {
+                try
+                {
+                    using (var reader = new StreamReader(stream))
+                        return reader.ReadToEnd();
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error retrieving from Resources. Tried '"
+                                             + resourceName + "'\r\n" + e.ToString());
+                }
+            }
         }
 
         private void Apply(IEnumerable<PatternHit> patternHits, ITextView textView)

@@ -2,7 +2,7 @@ using System;
 
 namespace Brage.AliasBeGone.Infrastructure
 {
-    internal interface IMap
+    public interface IMap
     {
         /// <summary>
         ///     Contains the alias to convert from

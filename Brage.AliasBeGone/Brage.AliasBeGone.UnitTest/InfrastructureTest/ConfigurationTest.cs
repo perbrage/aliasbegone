@@ -29,5 +29,15 @@ namespace Brage.AliasBeGone.UnitTest.InfrastructureTest
             Assert.IsTrue(ReferenceEquals(firstCall, secondCall));
         }
 
+        [Test]
+        public void GetSnippets_CalledASecondTime_ReturnsSameInstance()
+        {
+            var configuration = new Configuration();
+
+            var firstCall = configuration.GetSnippets();
+            var secondCall = configuration.GetSnippets();
+
+            Assert.IsTrue(ReferenceEquals(firstCall, secondCall));
+        }
     }
 }

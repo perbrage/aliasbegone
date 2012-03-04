@@ -10,6 +10,7 @@ namespace Brage.AliasBeGone.Infrastructure
     {
         private IEnumerable<IMap> _mappings;
         private IEnumerable<String> _patterns;
+        private IEnumerable<String> _snippets;
 
         /// <summary>
         ///     Returns alias to CLR mappings that will be searched for
@@ -53,10 +54,39 @@ namespace Brage.AliasBeGone.Infrastructure
                                        "<{0}[", // var test = new List<int[]>();
                                        "<{0}?", // var test = new List<int?>();
                                        " {0}?", // int? x = 0;
-                                       " {0}(",  // var x = new int();
-                                       " {0}.", // var i = Int32.Parse(x);
-                                       "({0}."  // if (String.IsNullOrEmpty)
+                                       " {0}(", // var x = new int();
+                                       " {0})", // if (y is string)
+                                       " {0}.", // var i = int.Parse(x);
+                                       "({0}." // if (string.IsNullOrEmpty)
                                    });
+        }
+
+        /// <summary>
+        ///     Returns all snippets to install/uninstall
+        /// </summary>
+        /// <returns>Snippet names</returns>
+        public IEnumerable<String> GetSnippets()
+        {
+            return _snippets ?? (_snippets = new List<String>
+                                    {
+                                        "Boolean.snippet",
+                                        "Object.snippet",
+                                        "String.snippet",
+                                        "Delegate.snippet",
+                                        "Char.snippet",
+                                        "Decimal.snippet",
+                                        "Single.snippet",
+                                        "Double.snippet",
+                                        "Int16.snippet",
+                                        "Int32.snippet",
+                                        "Int64.snippet",
+                                        "UInt16.snippet",
+                                        "UInt32.snippet",
+                                        "UInt64.snippet",
+                                        "Byte.snippet",
+                                        "SByte.snippet",
+                                    })
+            ;
         }
 
     }

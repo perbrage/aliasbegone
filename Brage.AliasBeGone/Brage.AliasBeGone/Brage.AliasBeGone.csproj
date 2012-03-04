@@ -115,7 +115,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\Configuration.cs" />
+    <Compile Include="Infrastructure\IResourceReader.cs" />
+    <Compile Include="Infrastructure\ISnippetManager.cs" />
+    <Compile Include="Infrastructure\ISnippetsManager.cs" />
     <Compile Include="Infrastructure\PackageBase.cs" />
+    <Compile Include="Infrastructure\SnippetsManager.cs" />
+    <Compile Include="Infrastructure\ResourceReader.cs" />
     <Compile Include="PatternMatching\IPatternMatcher.cs" />
     <Compile Include="PatternMatching\PatternMatcher.cs" />
     <Compile Include="Infrastructure\IMap.cs" />
@@ -144,22 +149,22 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Snippets\Boolean.snippet" />
-    <None Include="Snippets\Char.snippet" />
-    <None Include="Snippets\Delegate.snippet" />
-    <None Include="Snippets\SByte.snippet" />
-    <None Include="Snippets\Byte.snippet" />
-    <None Include="Snippets\Decimal.snippet" />
-    <None Include="Snippets\Double.snippet" />
-    <None Include="Snippets\Single.snippet" />
-    <None Include="Snippets\Object.snippet" />
-    <None Include="Snippets\UInt64.snippet" />
-    <None Include="Snippets\Int64.snippet" />
-    <None Include="Snippets\UInt16.snippet" />
-    <None Include="Snippets\UInt32.snippet" />
-    <None Include="Snippets\Int16.snippet" />
-    <None Include="Snippets\Int32.snippet" />
-    <None Include="Snippets\String.snippet" />
+    <EmbeddedResource Include="Snippets\Boolean.snippet" />
+    <EmbeddedResource Include="Snippets\Char.snippet" />
+    <EmbeddedResource Include="Snippets\Delegate.snippet" />
+    <EmbeddedResource Include="Snippets\SByte.snippet" />
+    <EmbeddedResource Include="Snippets\Byte.snippet" />
+    <EmbeddedResource Include="Snippets\Decimal.snippet" />
+    <EmbeddedResource Include="Snippets\Double.snippet" />
+    <EmbeddedResource Include="Snippets\Single.snippet" />
+    <EmbeddedResource Include="Snippets\Object.snippet" />
+    <EmbeddedResource Include="Snippets\UInt64.snippet" />
+    <EmbeddedResource Include="Snippets\Int64.snippet" />
+    <EmbeddedResource Include="Snippets\UInt16.snippet" />
+    <EmbeddedResource Include="Snippets\UInt32.snippet" />
+    <EmbeddedResource Include="Snippets\Int16.snippet" />
+    <EmbeddedResource Include="Snippets\Int32.snippet" />
+    <EmbeddedResource Include="Snippets\String.snippet" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>

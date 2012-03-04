@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Brage.AliasBeGone.Infrastructure
 {
-    internal interface IConfiguration
+    public interface IConfiguration
     {
         /// <summary>
         ///     Returns alias to CLR mappings that will be searched for
@@ -16,5 +16,11 @@ namespace Brage.AliasBeGone.Infrastructure
         /// </summary>
         /// <returns>Search patterns</returns>
         IEnumerable<String> GetPatterns();
+
+        /// <summary>
+        ///     Returns all snippets to install/uninstall
+        /// </summary>
+        /// <returns>Snippet names</returns>
+        IEnumerable<String> GetSnippets();
     }
 }
