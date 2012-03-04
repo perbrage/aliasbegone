@@ -86,7 +86,7 @@ namespace Brage.AliasBeGone
 
             if (messageBoxResult == MessageBoxResult.Cancel)
                 return;
-
+            
             MessageBox.Show("Installed");
         }
 

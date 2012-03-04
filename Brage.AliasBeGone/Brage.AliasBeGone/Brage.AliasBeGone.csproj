@@ -145,6 +145,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Snippets\Boolean.snippet" />
+    <None Include="Snippets\Char.snippet" />
+    <None Include="Snippets\Delegate.snippet" />
+    <None Include="Snippets\SByte.snippet" />
+    <None Include="Snippets\Byte.snippet" />
+    <None Include="Snippets\Decimal.snippet" />
+    <None Include="Snippets\Double.snippet" />
+    <None Include="Snippets\Single.snippet" />
+    <None Include="Snippets\Object.snippet" />
+    <None Include="Snippets\UInt64.snippet" />
+    <None Include="Snippets\Int64.snippet" />
+    <None Include="Snippets\UInt16.snippet" />
+    <None Include="Snippets\UInt32.snippet" />
+    <None Include="Snippets\Int16.snippet" />
     <None Include="Snippets\Int32.snippet" />
     <None Include="Snippets\String.snippet" />
     <None Include="source.extension.vsixmanifest">
