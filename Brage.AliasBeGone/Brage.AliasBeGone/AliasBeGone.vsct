@@ -18,7 +18,7 @@
     <Buttons>
       <Button guid="aliasBeGoneCommandSet" id="aliasBeGoneConvertCommand" priority="0x0400">
         <Parent guid="aliasBeGoneCommandSet" id="aliasBeGoneMenuGroup"/>
-        <Icon guid="guidOfficeIcon" id="msotcidToolbox" />
+        <Icon guid="aliasBeGoneImages" id="aliasBeGoneIcon" />
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <Strings>
@@ -58,12 +58,16 @@
 
     </Buttons>
 
+    <Bitmaps>
+      <Bitmap guid="aliasBeGoneImages" href="Resources/ABG16x16.png" usedList="aliasBeGoneIcon"/>
+    </Bitmaps>
+    
   </Commands>
-
+  
   <KeyBindings>
     <KeyBinding guid="aliasBeGoneCommandSet" id="aliasBeGoneConvertCommand" editor="guidVSStd97" mod1="Control" key1="k" mod2="Control" key2="j"  />
   </KeyBindings>
-
+  
   <Symbols>
     <GuidSymbol name="aliasBeGonePackage" value="{bc73d75b-bfb5-4217-841f-7c8c6a059fa4}" />
     <GuidSymbol name="aliasBeGoneCommandSet" value="{7cb4948b-3d32-4495-aa76-a0e72553207e}">
@@ -71,6 +75,9 @@
       <IDSymbol name="aliasBeGoneConvertCommand" value="0x0201" />
       <IDSymbol name="aliasBeGoneInstallSnippetsCommand" value="0x0202" />
       <IDSymbol name="aliasBeGoneUninstallSnippetsCommand" value="0x0203" />
+    </GuidSymbol>
+    <GuidSymbol name="aliasBeGoneImages" value="{b67b47ab-56c0-4294-82ef-9c24417cfd4b}">
+      <IDSymbol name="aliasBeGoneIcon" value="1"/>
     </GuidSymbol>
   </Symbols>
 
