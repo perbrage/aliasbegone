@@ -6,7 +6,7 @@ namespace Brage.AliasBeGone.Infrastructure
     internal class ResourceReader : IResourceReader
     {
         private readonly string _resourceNamespace;
-        
+
         public ResourceReader(String resourceNamespace)
         {
             _resourceNamespace = resourceNamespace;
@@ -15,14 +15,12 @@ namespace Brage.AliasBeGone.Infrastructure
         public String GetResourceContent(String resourceName)
         {
             var resourceFullName = BuildResourceFullName(resourceName);
-
             var assembly = GetType().Assembly;
-            using (var stream = assembly.GetManifestResourceStream(resourceFullName))
-            {
-                if (stream != null)
-                    using (var reader = new StreamReader(stream))
-                        return reader.ReadToEnd();
-            }
+            var stream = assembly.GetManifestResourceStream(resourceFullName);
+            
+            if (stream != null)
+                using (var reader = new StreamReader(stream))
+                    return reader.ReadToEnd();
 
             return null;
         }
@@ -31,7 +29,7 @@ namespace Brage.AliasBeGone.Infrastructure
         {
             if (resourceName.StartsWith(".") || _resourceNamespace.EndsWith("."))
                 return String.Concat(_resourceNamespace, resourceName);
-            
+
             return String.Join(".", _resourceNamespace, resourceName);
         }
     }
