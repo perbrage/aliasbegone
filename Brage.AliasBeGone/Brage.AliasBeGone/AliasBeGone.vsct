@@ -16,7 +16,7 @@
     </Groups>
 
     <Buttons>
-      <Button guid="aliasBeGoneCommandSet" id="aliasBeGoneConvertCommand" priority="0x0100">
+      <Button guid="aliasBeGoneCommandSet" id="aliasBeGoneConvertCommand" priority="0x0400">
         <Parent guid="aliasBeGoneCommandSet" id="aliasBeGoneMenuGroup"/>
         <Icon guid="guidOfficeIcon" id="msotcidToolbox" />
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -30,15 +30,29 @@
         </Strings>
       </Button>
 
-      <Button guid="aliasBeGoneCommandSet" id="aliasBeGoneInstallSnippetsCommand" priority="0x0200">
+      <Button guid="aliasBeGoneCommandSet" id="aliasBeGoneInstallSnippetsCommand" priority="0x0401">
         <Parent guid="aliasBeGoneCommandSet" id="aliasBeGoneMenuGroup"/>
-        <Icon guid="guidOfficeIcon" id="msotcidToolbox" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
           <CommandName>aliasBeGoneInstallSnippetsCommand</CommandName>
           <CanonicalName>AliasBeGoneInstallSnippetsCommand</CanonicalName>
           <ButtonText>Install snippets</ButtonText>
           <MenuText>Install snippets</MenuText>
           <ToolTipText>Installs Alias Be Gone snippets into current users personal snippets folder</ToolTipText>
+        </Strings>
+      </Button>
+
+      <Button guid="aliasBeGoneCommandSet" id="aliasBeGoneUninstallSnippetsCommand" priority="0x0402">
+        <Parent guid="aliasBeGoneCommandSet" id="aliasBeGoneMenuGroup"/>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <CommandName>aliasBeGoneUninstallSnippetsCommand</CommandName>
+          <CanonicalName>AliasBeGoneUninstallSnippetsCommand</CanonicalName>
+          <ButtonText>Uninstall snippets</ButtonText>
+          <MenuText>Uninstall snippets</MenuText>
+          <ToolTipText>Uninstalls Alias Be Gone snippets</ToolTipText>
         </Strings>
       </Button>
 
@@ -56,6 +70,7 @@
       <IDSymbol name="aliasBeGoneMenuGroup" value="0x0200" />
       <IDSymbol name="aliasBeGoneConvertCommand" value="0x0201" />
       <IDSymbol name="aliasBeGoneInstallSnippetsCommand" value="0x0202" />
+      <IDSymbol name="aliasBeGoneUninstallSnippetsCommand" value="0x0203" />
     </GuidSymbol>
   </Symbols>
 

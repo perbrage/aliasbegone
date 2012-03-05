@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.ComponentModel.Design;
 using System.Windows;
@@ -24,12 +22,23 @@ namespace Brage.AliasBeGone
     {
         private const String USING_SYSTEM = "using System;";
         private const String SNIPPETS_NAMESPACE = "Brage.AliasBeGone.Snippets";
+        private const String SNIPPETS_INSTALLED_MESSAGE = "Snippets are now installed!";
+        private const String SNIPPETS_UNINSTALLED_MESSAGE = "Snippets are now uninstalled!";
+        private const String SNIPPETS_INSTALL_QUESTION_TITLE = "Install Alias Be Gone Snippets?";
+        private const String SNIPPETS_INSTALL_QUESTION_DESCRIPTION = "You are about to install Alias Be Gone snippets in your personal snippets folder! " +
+                                                                     "These snippets are optional functionality and are not required for Alias Be Gone to function " +
+                                                                     "properly! \n\nCaution! These snippets will NOT be removed when you uninstall Alias Be Gone extension. " +
+                                                                     "You can however do it manually or use the menu option provided to uninstall these snippets before you " +
+                                                                     "uninstall Alias Be Gone";
         
         private readonly PatternMatcher _patternMatcher;
         private readonly SnippetsManager _snippetsManager;
 
         private OleMenuCommand _aliasBeGoneConvertMenuItem;
         private OleMenuCommand _aliasBeGoneInstallSnippetsMenuItem;
+        private OleMenuCommand _aliasBeGoneUninstallSnippetsMenuItem;
+
+        private Boolean _snippetsInstalled;
 
         public AliasBeGonePackage()
         {
@@ -37,6 +46,8 @@ namespace Brage.AliasBeGone
             var resourceManager = new ResourceReader(SNIPPETS_NAMESPACE);
             _patternMatcher = new PatternMatcher(configuration);
             _snippetsManager = new SnippetsManager(configuration, resourceManager);
+
+            _snippetsInstalled = _snippetsManager.IsInstalled;
         }
 
         protected override void Initialize()
@@ -50,6 +61,7 @@ namespace Brage.AliasBeGone
 
             BuildAliasBeGoneConvertCommand(menuCommandService);
             BuildAliasBeGoneInstallSnippetsCommand(menuCommandService);
+            BuildAliasBeGoneUninstallSnippetsCommand(menuCommandService);
         }
 
         private void BuildAliasBeGoneConvertCommand(IMenuCommandService menuCommandService)
@@ -66,14 +78,32 @@ namespace Brage.AliasBeGone
         {
             var aliasBeGoneInstallSnippetsCommand = new CommandID(new Guid(Constants.ALIAS_BE_GONE_COMMANDSET_ID_STRING), Constants.ALIAS_BE_GONE_INSTALL_SNIPPETS_COMMAND);
             _aliasBeGoneInstallSnippetsMenuItem = new OleMenuCommand(OnExecuteInstallSnippets, aliasBeGoneInstallSnippetsCommand);
+            _aliasBeGoneInstallSnippetsMenuItem.BeforeQueryStatus += OnBeforeQueryStatusInstallSnippets;
             menuCommandService.AddCommand(_aliasBeGoneInstallSnippetsMenuItem);
         }
 
+        private void BuildAliasBeGoneUninstallSnippetsCommand(IMenuCommandService menuCommandService)
+        {
+            var aliasBeGoneUninstallSnippetsCommand = new CommandID(new Guid(Constants.ALIAS_BE_GONE_COMMANDSET_ID_STRING), Constants.ALIAS_BE_GONE_UNINSTALL_SNIPPETS_COMMAND);
+            _aliasBeGoneUninstallSnippetsMenuItem = new OleMenuCommand(OnExecuteUninstallSnippets, aliasBeGoneUninstallSnippetsCommand);
+            _aliasBeGoneUninstallSnippetsMenuItem.BeforeQueryStatus += OnBeforeQueryStatusUninstallSnippets;
+            menuCommandService.AddCommand(_aliasBeGoneUninstallSnippetsMenuItem);            
+        }
 
         private void OnBeforeQueryStatus(Object sender, EventArgs e)
         {
             var dte = GetService<SDTE, DTE2>();
             _aliasBeGoneConvertMenuItem.Enabled = dte.ActiveWindow.Caption.EndsWith(".cs");
+        }
+
+        private void OnBeforeQueryStatusInstallSnippets(Object sender, EventArgs e)
+        {
+            _aliasBeGoneInstallSnippetsMenuItem.Visible = !_snippetsInstalled;
+        }
+
+        private void OnBeforeQueryStatusUninstallSnippets(Object sender, EventArgs e)
+        {
+            _aliasBeGoneUninstallSnippetsMenuItem.Visible = _snippetsInstalled;
         }
 
         private void OnExecuteConvert(Object sender, EventArgs e)
@@ -91,40 +121,25 @@ namespace Brage.AliasBeGone
 
         private void OnExecuteInstallSnippets(Object sender, EventArgs e)
         {
-            var messageBoxResult = MessageBox.Show("You are about to install Alias Be Gone snippets in your personal snippets folder. These snippets are optional functionality and Alias Be Gone will work without them! Caution! These snippets will NOT be uninstalled if you remove Alias Be Gone extension. ", "Install Alias Be Gone Snippets?", MessageBoxButton.OKCancel);
+            var messageBoxResult = MessageBox.Show(SNIPPETS_INSTALL_QUESTION_DESCRIPTION, 
+                                                   SNIPPETS_INSTALL_QUESTION_TITLE, 
+                                                   MessageBoxButton.OKCancel);
 
             if (messageBoxResult == MessageBoxResult.Cancel)
                 return;
 
-            if (!_snippetsManager.IsInstalled)
-            {
-                _snippetsManager.Install();
-                MessageBox.Show("Snippets are now installed");
-            }
-            else
-            {
-                _snippetsManager.Uninstall();
-                MessageBox.Show("Snippets are now uninstalled");
-            }
+            _snippetsManager.Install();
+            _snippetsInstalled = true;
 
+            MessageBox.Show(SNIPPETS_INSTALLED_MESSAGE);
         }
 
-        internal string GetFromResources(string resourceName)
+        private void OnExecuteUninstallSnippets(Object sender, EventArgs e)
         {
-            var assembly = GetType().Assembly;
-            using (var stream = assembly.GetManifestResourceStream(resourceName))
-            {
-                try
-                {
-                    using (var reader = new StreamReader(stream))
-                        return reader.ReadToEnd();
-                }
-                catch (Exception e)
-                {
-                    throw new Exception("Error retrieving from Resources. Tried '"
-                                             + resourceName + "'\r\n" + e.ToString());
-                }
-            }
+            _snippetsManager.Uninstall();
+            _snippetsInstalled = false;
+
+            MessageBox.Show(SNIPPETS_UNINSTALLED_MESSAGE);
         }
 
         private void Apply(IEnumerable<PatternHit> patternHits, ITextView textView)

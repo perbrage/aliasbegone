@@ -8,5 +8,6 @@ namespace Brage.AliasBeGone.Infrastructure
         public const String ALIAS_BE_GONE_COMMANDSET_ID_STRING = "7cb4948b-3d32-4495-aa76-a0e72553207e";
         public const Int32 ALIAS_BE_GONE_CONVERT_COMMAND = 0x0201;
         public const Int32 ALIAS_BE_GONE_INSTALL_SNIPPETS_COMMAND = 0x0202;
+        public const Int32 ALIAS_BE_GONE_UNINSTALL_SNIPPETS_COMMAND = 0x0203;
     };
 }
