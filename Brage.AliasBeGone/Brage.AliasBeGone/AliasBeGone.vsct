@@ -59,7 +59,7 @@
     </Buttons>
 
     <Bitmaps>
-      <Bitmap guid="aliasBeGoneImages" href="Resources/ABG16x16.png" usedList="aliasBeGoneIcon"/>
+      <Bitmap guid="aliasBeGoneImages" href="Resources/AliasBeGone16x16.png" usedList="aliasBeGoneIcon"/>
     </Bitmaps>
     
   </Commands>

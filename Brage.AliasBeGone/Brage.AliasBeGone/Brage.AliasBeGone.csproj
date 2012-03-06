@@ -179,6 +179,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Resource Include="Resources\AliasBeGone16x16.png" />
     <Resource Include="Resources\Package.ico" />
   </ItemGroup>
   <ItemGroup>

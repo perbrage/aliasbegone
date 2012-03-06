@@ -57,7 +57,10 @@ namespace Brage.AliasBeGone.Infrastructure
                                        " {0}(", // var x = new int();
                                        " {0})", // if (y is string)
                                        " {0}.", // var i = int.Parse(x);
-                                       "({0}." // if (string.IsNullOrEmpty)
+                                       "({0}.", // if (string.IsNullOrEmpty(str))
+                                       "!{0}.", // if (!string.IsNullOrEmpty(str))
+                                       "({0} ", // public void Method(string str)
+                                       " {0};"  // var a = b as Object;
                                    });
         }
 

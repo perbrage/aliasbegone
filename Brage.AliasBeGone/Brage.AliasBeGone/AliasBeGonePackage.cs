@@ -59,38 +59,35 @@ namespace Brage.AliasBeGone
             if (menuCommandService == null)
                 return;
 
-            BuildAliasBeGoneConvertCommand(menuCommandService);
-            BuildAliasBeGoneInstallSnippetsCommand(menuCommandService);
-            BuildAliasBeGoneUninstallSnippetsCommand(menuCommandService);
+            _aliasBeGoneConvertMenuItem = BuildMenuItem(menuCommandService, 
+                                                        Constants.ALIAS_BE_GONE_CONVERT_COMMAND, 
+                                                        OnExecuteConvert, 
+                                                        OnBeforeQueryStatusConvert);
+
+            _aliasBeGoneInstallSnippetsMenuItem = BuildMenuItem(menuCommandService, 
+                                                                Constants.ALIAS_BE_GONE_INSTALL_SNIPPETS_COMMAND, 
+                                                                OnExecuteInstallSnippets, 
+                                                                OnBeforeQueryStatusInstallSnippets);
+
+            _aliasBeGoneUninstallSnippetsMenuItem = BuildMenuItem(menuCommandService, 
+                                                                  Constants.ALIAS_BE_GONE_UNINSTALL_SNIPPETS_COMMAND, 
+                                                                  OnExecuteUninstallSnippets, 
+                                                                  OnBeforeQueryStatusUninstallSnippets);
+
         }
 
-        private void BuildAliasBeGoneConvertCommand(IMenuCommandService menuCommandService)
+        private OleMenuCommand BuildMenuItem(IMenuCommandService menuCommandService, Int32 commandId, EventHandler onExecute, EventHandler onBeforeQueryStatus)
         {
-            var aliasBeGoneConvertCommand = new CommandID(new Guid(Constants.ALIAS_BE_GONE_COMMANDSET_ID_STRING), Constants.ALIAS_BE_GONE_CONVERT_COMMAND);
+            var command = new CommandID(new Guid(Constants.ALIAS_BE_GONE_COMMANDSET_ID_STRING), commandId);
+            var menuItem = new OleMenuCommand(onExecute, command);
 
-            _aliasBeGoneConvertMenuItem = new OleMenuCommand(OnExecuteConvert, aliasBeGoneConvertCommand);
-            _aliasBeGoneConvertMenuItem.BeforeQueryStatus += OnBeforeQueryStatus;
+            menuItem.BeforeQueryStatus += onBeforeQueryStatus;
+            menuCommandService.AddCommand(menuItem);
 
-            menuCommandService.AddCommand(_aliasBeGoneConvertMenuItem); 
+            return menuItem;
         }
 
-        private void BuildAliasBeGoneInstallSnippetsCommand(IMenuCommandService menuCommandService)
-        {
-            var aliasBeGoneInstallSnippetsCommand = new CommandID(new Guid(Constants.ALIAS_BE_GONE_COMMANDSET_ID_STRING), Constants.ALIAS_BE_GONE_INSTALL_SNIPPETS_COMMAND);
-            _aliasBeGoneInstallSnippetsMenuItem = new OleMenuCommand(OnExecuteInstallSnippets, aliasBeGoneInstallSnippetsCommand);
-            _aliasBeGoneInstallSnippetsMenuItem.BeforeQueryStatus += OnBeforeQueryStatusInstallSnippets;
-            menuCommandService.AddCommand(_aliasBeGoneInstallSnippetsMenuItem);
-        }
-
-        private void BuildAliasBeGoneUninstallSnippetsCommand(IMenuCommandService menuCommandService)
-        {
-            var aliasBeGoneUninstallSnippetsCommand = new CommandID(new Guid(Constants.ALIAS_BE_GONE_COMMANDSET_ID_STRING), Constants.ALIAS_BE_GONE_UNINSTALL_SNIPPETS_COMMAND);
-            _aliasBeGoneUninstallSnippetsMenuItem = new OleMenuCommand(OnExecuteUninstallSnippets, aliasBeGoneUninstallSnippetsCommand);
-            _aliasBeGoneUninstallSnippetsMenuItem.BeforeQueryStatus += OnBeforeQueryStatusUninstallSnippets;
-            menuCommandService.AddCommand(_aliasBeGoneUninstallSnippetsMenuItem);            
-        }
-
-        private void OnBeforeQueryStatus(Object sender, EventArgs e)
+        private void OnBeforeQueryStatusConvert(Object sender, EventArgs e)
         {
             var dte = GetService<SDTE, DTE2>();
             _aliasBeGoneConvertMenuItem.Enabled = dte.ActiveWindow.Caption.EndsWith(".cs");
@@ -151,7 +148,7 @@ namespace Brage.AliasBeGone
                 textEdit.Insert(0, USING_SYSTEM + Environment.NewLine);
 
             foreach (var patternHit in patternHits)
-                textEdit.Replace(patternHit.StartPosition, patternHit.CharsToReplace, patternHit.ReplaceWith);
+                    textEdit.Replace(patternHit.StartPosition, patternHit.CharsToReplace, patternHit.ReplaceWith);
 
             textEdit.Apply();
         }
