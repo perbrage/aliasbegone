@@ -155,7 +155,9 @@
     <EmbeddedResource Include="Snippets\SByte.snippet" />
     <EmbeddedResource Include="Snippets\Byte.snippet" />
     <EmbeddedResource Include="Snippets\Decimal.snippet" />
-    <EmbeddedResource Include="Snippets\Double.snippet" />
+    <EmbeddedResource Include="Snippets\Double.snippet">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Snippets\Single.snippet" />
     <EmbeddedResource Include="Snippets\Object.snippet" />
     <EmbeddedResource Include="Snippets\UInt64.snippet" />
@@ -173,17 +175,11 @@
     <None Include="AliasBeGone.snk" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AliasBeGone32x32.png">
+    <Content Include="AliasBeGoneIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Resource Include="Resources\Package.ico" />
-    <Resource Include="Resources\ABG16x16.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\ABG16x16v2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
   <ItemGroup>
     <VSCTCompile Include="AliasBeGone.vsct">
