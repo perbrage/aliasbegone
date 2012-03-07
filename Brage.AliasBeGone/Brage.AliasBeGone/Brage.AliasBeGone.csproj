@@ -175,7 +175,7 @@
     <None Include="AliasBeGone.snk" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AliasBeGoneIcon.png">
+    <Content Include="Resources\AliasBeGone32x32.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
