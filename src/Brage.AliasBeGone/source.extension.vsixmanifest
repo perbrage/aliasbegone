@@ -3,11 +3,11 @@
   <Identifier Id="bc73d75b-bfb5-4217-841f-7c8c6a059fa4">
     <Name>Alias Be Gone</Name>
     <Author>Per Brage</Author>
-    <Version>0.2</Version>
+    <Version>0.3</Version>
     <Description xml:space="preserve">Develop using CLR types instead of C# aliases such as int, string etc. Extension also includes snippets to automatically convert int to Int32 as you type.</Description>
     <Locale>1033</Locale>
     <License>../../LICENSE.txt</License>
-    <Icon>Resources/AliasBeGone32x32.png</Icon>
+    <Icon>Resources/AliasBeGone32x32-transparent.png</Icon>
     <InstalledByMsi>false</InstalledByMsi>
     <SupportedProducts>
       <VisualStudio Version="10.0">

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="110" xml:space="preserve">
-    <value>Alias be gone</value>
+    <value>Alias Be Gone</value>
   </data>
   <data name="112" xml:space="preserve">
     <value>Develop using CLR types instead of C# aliases such as int, string etc. Extension also includes snippets to automatically convert int to Int32 as you type.</value>

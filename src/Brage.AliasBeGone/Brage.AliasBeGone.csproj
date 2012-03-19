@@ -175,11 +175,10 @@
     <None Include="AliasBeGone.snk" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\AliasBeGone32x32.png">
+    <Content Include="Resources\AliasBeGone16x16.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Resource Include="Resources\AliasBeGone16x16.png" />
     <Resource Include="Resources\Package.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -188,7 +187,18 @@
       <SubType>Designer</SubType>
     </VSCTCompile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\AliasBeGone32x32.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\AliasBeGone32x32-transparent.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+  </ItemGroup>
   <PropertyGroup>
     <UseCodebase>true</UseCodebase>
   </PropertyGroup>
