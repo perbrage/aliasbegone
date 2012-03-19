@@ -121,7 +121,7 @@
     <value>Alias Be Gone</value>
   </data>
   <data name="112" xml:space="preserve">
-    <value>Develop using CLR types instead of C# aliases such as int, string etc. Extension also includes snippets to automatically convert int to Int32 as you type. More information on GitHub repository http://github.com/perbrage/aliasbegone/</value>
+    <value>A C# alias to .NET CLR type replacer extension for Visual Studio 2010 that provides a keyboard shortcut to quickly replace all aliases to its CLR equivalents in current active document. Alias Be Gone also provides optional snippets that can be installed to provide development using aliases, that quickly converts into CLR type when you double-tap Tab like any other snippet. More information on GitHub repository http://github.com/perbrage/aliasbegone/</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="400" type="System.Resources.ResXFileRef, System.Windows.Forms">
