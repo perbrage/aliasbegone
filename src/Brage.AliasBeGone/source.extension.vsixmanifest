@@ -7,7 +7,7 @@
     <Description xml:space="preserve">A C# alias to .NET CLR type replacer extension.</Description>
     <Locale>1033</Locale>
     <MoreInfoUrl>http://github.com/perbrage/aliasbegone/</MoreInfoUrl>
-    <License>../../LICENSE.txt</License>
+    <License>Resources/LICENSE.txt</License>
     <Icon>Resources/AliasBeGone32x32-transparent.png</Icon>
     <InstalledByMsi>false</InstalledByMsi>
     <SupportedProducts>
