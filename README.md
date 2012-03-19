@@ -15,3 +15,7 @@ Alias Be gone is your extension to quickly replace all C# aliases to correspondi
 Alias Be Gone provides a menu command with shortcut (Ctrl+K, Ctrl+J) to quickly replace all aliases. Simply open up a C# code file and use Alias Be Gone shortcut and all your aliases will be converted into CLR types.
 
 If you installed the bundled snippets you can develop using the alias names and then press tab twice after like any other snippet. For example, type bool and then press tab twice to instantly replace it to Boolean
+
+### Links
+
+[Alias Be Gone on Visual Studio Gallery](http://visualstudiogallery.msdn.microsoft.com/f4f18ca8-187b-4f3d-9a1e-eeb8330bb1f7)
