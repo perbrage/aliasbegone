@@ -60,7 +60,12 @@ namespace Brage.AliasBeGone.Infrastructure
                                        "({0}.", // if (string.IsNullOrEmpty(str))
                                        "!{0}.", // if (!string.IsNullOrEmpty(str))
                                        "({0} ", // public void Method(string str)
-                                       " {0};"  // var a = b as Object;
+                                       " {0};", // var a = b as Object;
+                                       " {0}>", // Expression<Func<object, object>>
+                                       ",{0}>", // Expression<Func<object,object>>
+                                       ",{0}?", // Expression<Func<object,int?>>
+                                       "<{0},", // Expression<Func<object, object>>
+                                       "<{0} " // Expression<Func<object , object>>
                                    });
         }
 
