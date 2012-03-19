@@ -1,0 +1,17 @@
+### Alias Be Gone
+A C# alias to .NET CLR type replacer extension for Visual Studio 2010 that provides a keyboard shortcut to quickly replace all aliases to its CLR equivalents in current active document. Alias Be Gone also provides optional snippets that can be installed to provide development using aliases, that quickly converts into CLR type when you double-tap Tab like any other snippet. 
+
+### Target audience
+Are you a C# developer who is also a CLR purist that would never use aliases like short, int or long in your code? Do you have a war in your shop where other developers replace your beautiful code with those pesky aliases colored like keywords? Then this extension is for you!
+
+Alias Be gone is your extension to quickly replace all C# aliases to corresponding CLR type and put you one step ahead in the fight against C# aliases. 
+
+### Installation
+* Install Alias Be Gone extension through Visual Studios 2010 Extension Manager like any other Visual Studio extension. If you have something else bound to Ctrl-K, Ctrl-J you may need to bind the extension to another shortcut.
+* Optional! If you want to install the bundled snippets you can pull down the Edit menu after restarting Visual Studio and choose Install Snippets right under Alias Be Gone menu command.
+
+### Usage
+
+Alias Be Gone provides a menu command with shortcut (Ctrl+K, Ctrl+J) to quickly replace all aliases. Simply open up a C# code file and use Alias Be Gone shortcut and all your aliases will be converted into CLR types.
+
+If you installed the bundled snippets you can develop using the alias names and then press tab twice after like any other snippet. For example, type bool and then press tab twice to instantly replace it to Boolean
