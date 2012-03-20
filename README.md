@@ -16,6 +16,15 @@ Alias Be Gone provides a menu command with shortcut (Ctrl+K, Ctrl+J) to quickly 
 
 If you installed the bundled snippets you can develop using the alias names and then press tab twice after like any other snippet. For example, type bool and then press tab twice to instantly replace it to Boolean
 
+### History
+
+* Version 0.3
+    * First public release!
+    
+* Version 0.4
+    * VS11 support
+    * Added missing search patterns
+
 ### Links
 
 [Alias Be Gone on Visual Studio Gallery](http://visualstudiogallery.msdn.microsoft.com/f4f18ca8-187b-4f3d-9a1e-eeb8330bb1f7)
