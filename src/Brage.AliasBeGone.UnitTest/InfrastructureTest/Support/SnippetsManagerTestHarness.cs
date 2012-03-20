@@ -13,9 +13,9 @@ namespace Brage.AliasBeGone.UnitTest.InfrastructureTest.Support
         {
         }
 
-        protected override string GetUserPath()
+        protected override string GetVisualStudioPath()
         {
-            return "C:\\Users\\Brage\\";
+            return "C:\\Users\\Brage\\Documents\\Visual Studio 2010\\";
         }
 
         protected override bool IsSnippetInstalled(String path)

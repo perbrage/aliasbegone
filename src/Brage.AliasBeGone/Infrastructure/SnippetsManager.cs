@@ -6,7 +6,7 @@ namespace Brage.AliasBeGone.Infrastructure
 {
     internal class SnippetsManager : ISnippetsManager
     {
-        private const String SNIPPETS_PATH = @"Documents\Visual Studio 2010\Code Snippets\Visual C#\My Code Snippets\";
+        private const String SNIPPETS_PATH = @"Code Snippets\Visual C#\My Code Snippets\";
         private readonly IConfiguration _configuration;
         private readonly IResourceReader _resourceReader;
 
@@ -25,7 +25,7 @@ namespace Brage.AliasBeGone.Infrastructure
                 if (String.IsNullOrEmpty(snippetContent))
                     continue;
 
-                var targetPath = BuildTargetPath(GetUserPath(), snippet);
+                var targetPath = BuildTargetPath(GetVisualStudioPath(), snippet);
 
                 if (!IsSnippetInstalled(targetPath))
                     CreateSnippet(targetPath, snippetContent);
@@ -36,7 +36,7 @@ namespace Brage.AliasBeGone.Infrastructure
         {
             foreach (var snippet in _configuration.GetSnippets())
             {
-                var targetPath = BuildTargetPath(GetUserPath(), snippet);
+                var targetPath = BuildTargetPath(GetVisualStudioPath(), snippet);
 
                 if (IsSnippetInstalled(targetPath))
                     DeleteSnippet(targetPath);
@@ -45,7 +45,7 @@ namespace Brage.AliasBeGone.Infrastructure
 
         public Boolean IsInstalled
         {
-            get { return _configuration.GetSnippets().All(snippet => IsSnippetInstalled(BuildTargetPath(GetUserPath(), snippet))); }
+            get { return _configuration.GetSnippets().All(snippet => IsSnippetInstalled(BuildTargetPath(GetVisualStudioPath(), snippet))); }
         }
 
         private String BuildTargetPath(String userPath, String snippetName)
@@ -64,9 +64,9 @@ namespace Brage.AliasBeGone.Infrastructure
             File.Delete(path);
         }
 
-        protected virtual String GetUserPath()
+        protected virtual String GetVisualStudioPath()
         {
-            return Environment.GetEnvironmentVariable("USERPROFILE");
+            return Environment.GetEnvironmentVariable("VisualStudioDir");
         }
 
         protected virtual Boolean IsSnippetInstalled(String path)
