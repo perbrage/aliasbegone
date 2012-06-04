@@ -65,7 +65,17 @@ namespace Brage.AliasBeGone.Infrastructure
                                        ",{0}>", // Expression<Func<object,object>>
                                        ",{0}?", // Expression<Func<object,int?>>
                                        "<{0},", // Expression<Func<object, object>>
-                                       "<{0} " // Expression<Func<object , object>>
+                                       "<{0} ", // Expression<Func<object , object>>
+                                       "[{0} ",  // this[string columnName]
+
+                                       //All start combinations above with a trailing Carriage return
+                                       "[{0}\r",
+                                       "<{0}\r",
+                                       ",{0}\r",
+                                       " {0}\r",
+                                       "({0}\r",
+                                       "!{0}\r",
+                                       "<{0}\r"
                                    });
         }
 

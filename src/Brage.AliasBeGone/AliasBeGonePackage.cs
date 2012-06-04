@@ -14,7 +14,7 @@ using Constants = Brage.AliasBeGone.Infrastructure.Constants;
 namespace Brage.AliasBeGone
 {
     [PackageRegistration(UseManagedResourcesOnly = true)]
-    [InstalledProductRegistration("#110", "#112", "0.4", IconResourceID = 400)]
+    [InstalledProductRegistration("#110", "#112", "0.5", IconResourceID = 400)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideAutoLoad("{f1536ef8-92ec-443c-9ed7-fdadf150da82}")]
     [Guid(Constants.ALIAS_BE_GONE_PACKAGE_ID_STRING)]
