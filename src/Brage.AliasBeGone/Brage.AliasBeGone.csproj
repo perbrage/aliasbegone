@@ -151,7 +151,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Snippets\Boolean.snippet" />
     <EmbeddedResource Include="Snippets\Char.snippet" />
-    <EmbeddedResource Include="Snippets\Delegate.snippet" />
     <EmbeddedResource Include="Snippets\SByte.snippet" />
     <EmbeddedResource Include="Snippets\Byte.snippet" />
     <EmbeddedResource Include="Snippets\Decimal.snippet" />

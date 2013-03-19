@@ -18,7 +18,7 @@ namespace Brage.AliasBeGone.UnitTest.InfrastructureTest
             var configuration = A.Fake<IConfiguration>();
             A.CallTo(() => configuration.GetSnippets()).Returns(new List<String>
                                                                     {
-                                                                        "Delegate.snippet",
+                                                                        "Int32.snippet",
                                                                         "Object.snippet"
                                                                     });
             var snippetManager = new SnippetsManagerTestHarness(configuration, resourceReader);
@@ -79,7 +79,7 @@ namespace Brage.AliasBeGone.UnitTest.InfrastructureTest
             A.CallTo(() => resourceReader.GetResourceContent(A<String>.Ignored)).Returns("ResourceContent");
             A.CallTo(() => configuration.GetSnippets()).Returns(new List<String>
                                                                     {
-                                                                        "Delegate.snippet"
+                                                                        "Int32.snippet"
                                                                     });
             var snippetManager = new SnippetsManagerTestHarness(configuration, resourceReader);
             
@@ -140,7 +140,7 @@ namespace Brage.AliasBeGone.UnitTest.InfrastructureTest
             A.CallTo(() => resourceReader.GetResourceContent(A<String>.Ignored)).Returns("ResourceContent");
             A.CallTo(() => configuration.GetSnippets()).Returns(new List<String>
                                                                     {
-                                                                        "Delegate.snippet"
+                                                                        "Int32.snippet"
                                                                     });
             var snippetManager = new SnippetsManagerTestHarness(configuration, resourceReader);
 
