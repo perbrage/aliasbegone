@@ -99,5 +99,29 @@ namespace Brage.AliasBeGone.UnitTest.PatternMatchingTest
             //Assert
             Assert.AreEqual(2, patternHits.Count());
         }
+
+		[Test]
+		public void CommentedCode_Search_UsingIntAndStringWithGenericPatternConfigurationAndSearchTextContainsPatches_ReturnsZeroPatternHits()
+		{
+			//Arrange
+			var configuration = A.Fake<IConfiguration>();
+			A.CallTo(() => configuration.GetPatterns()).Returns(new List<String>
+                                                                    {
+                                                                        "<{0}>"
+                                                                    });
+			A.CallTo(() => configuration.GetMappings()).Returns(new List<Map>
+                                                                    {
+                                                                        new Map("int", "Int32"),
+                                                                        new Map("string", "String")
+                                                                    });
+			var patternMatcher = new PatternMatcher(configuration);
+
+			//Act
+			var patternHits = patternMatcher.Search("/*var stats = new List<int>(); var messages = new List<string>();*/");
+
+			//Assert
+			Assert.AreEqual(0, patternHits.Count());
+		}
+
     }
 }
