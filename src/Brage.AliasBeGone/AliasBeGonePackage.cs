@@ -9,12 +9,13 @@ using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text.Editor;
+using System.Diagnostics;
 using Constants = Brage.AliasBeGone.Infrastructure.Constants;
 
 namespace Brage.AliasBeGone
 {
     [PackageRegistration(UseManagedResourcesOnly = true)]
-    [InstalledProductRegistration("#110", "#112", "0.6", IconResourceID = 400)]
+    [InstalledProductRegistration("#110", "#112", "0.7", IconResourceID = 400)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideAutoLoad("{f1536ef8-92ec-443c-9ed7-fdadf150da82}")]
     [Guid(Constants.ALIAS_BE_GONE_PACKAGE_ID_STRING)]
@@ -32,7 +33,7 @@ namespace Brage.AliasBeGone
                                                                      "uninstall Alias Be Gone";
 
         private const String ERROR_ENCOUNTERED = "An error occured: ";
-        
+
         private readonly PatternMatcher _patternMatcher;
         private readonly SnippetsManager _snippetsManager;
 
@@ -61,19 +62,19 @@ namespace Brage.AliasBeGone
             if (menuCommandService == null)
                 return;
 
-            _aliasBeGoneConvertMenuItem = BuildMenuItem(menuCommandService, 
-                                                        Constants.ALIAS_BE_GONE_CONVERT_COMMAND, 
-                                                        OnExecuteConvert, 
+            _aliasBeGoneConvertMenuItem = BuildMenuItem(menuCommandService,
+                                                        Constants.ALIAS_BE_GONE_CONVERT_COMMAND,
+                                                        OnExecuteConvert,
                                                         OnBeforeQueryStatusConvert);
 
-            _aliasBeGoneInstallSnippetsMenuItem = BuildMenuItem(menuCommandService, 
-                                                                Constants.ALIAS_BE_GONE_INSTALL_SNIPPETS_COMMAND, 
-                                                                OnExecuteInstallSnippets, 
+            _aliasBeGoneInstallSnippetsMenuItem = BuildMenuItem(menuCommandService,
+                                                                Constants.ALIAS_BE_GONE_INSTALL_SNIPPETS_COMMAND,
+                                                                OnExecuteInstallSnippets,
                                                                 OnBeforeQueryStatusInstallSnippets);
 
-            _aliasBeGoneUninstallSnippetsMenuItem = BuildMenuItem(menuCommandService, 
-                                                                  Constants.ALIAS_BE_GONE_UNINSTALL_SNIPPETS_COMMAND, 
-                                                                  OnExecuteUninstallSnippets, 
+            _aliasBeGoneUninstallSnippetsMenuItem = BuildMenuItem(menuCommandService,
+                                                                  Constants.ALIAS_BE_GONE_UNINSTALL_SNIPPETS_COMMAND,
+                                                                  OnExecuteUninstallSnippets,
                                                                   OnBeforeQueryStatusUninstallSnippets);
 
         }
@@ -92,6 +93,13 @@ namespace Brage.AliasBeGone
         private void OnBeforeQueryStatusConvert(Object sender, EventArgs e)
         {
             var dte = GetService<SDTE, DTE2>();
+
+            if (HasSelectedCodeFilesInSolutionExplorer(dte))
+            {
+                _aliasBeGoneConvertMenuItem.Enabled = true;
+                return;
+            }
+
             _aliasBeGoneConvertMenuItem.Enabled = dte.ActiveWindow.Caption.EndsWith(".cs");
         }
 
@@ -105,23 +113,83 @@ namespace Brage.AliasBeGone
             _aliasBeGoneUninstallSnippetsMenuItem.Visible = _snippetsInstalled;
         }
 
+        private Boolean HasSelectedCodeFilesInSolutionExplorer(DTE2 dte)
+        {
+            if (dte.ActiveWindow.Caption != "Solution Explorer")
+                return false;
+
+            var allSelectedItemsAreCodeFiles = true;
+
+            foreach (EnvDTE.SelectedItem selectedItem in dte.SelectedItems)
+            {
+                if (selectedItem.Name.EndsWith(".cs"))
+                    continue;
+
+                allSelectedItemsAreCodeFiles = false;
+                break;
+            }
+
+            return allSelectedItemsAreCodeFiles;
+        }
+
         private void OnExecuteConvert(Object sender, EventArgs e)
         {
-            var userData = GetUserData();
+            var dte = GetService<SDTE, DTE2>();
 
-            if (userData == null)
-                return;
+            if (HasSelectedCodeFilesInSolutionExplorer(dte))
+            {
+                foreach (EnvDTE.SelectedItem selectedItem in dte.SelectedItems)
+                {
+                    selectedItem.ProjectItem.Open();
 
-            var textView = GetTextView(userData);
-            var text = textView.TextBuffer.CurrentSnapshot.GetText();
+                    var path = selectedItem.ProjectItem.FileNames[0];
 
-            Apply(_patternMatcher.Search(text), textView);
+                    var textItem = GetIVsTextView(path);
+                    var userData = textItem as Microsoft.VisualStudio.TextManager.Interop.IVsUserData;
+
+                    if (userData == null)
+                        return;
+
+                    var textView = GetTextView(userData);
+                    var text = textView.TextBuffer.CurrentSnapshot.GetText();
+
+                    Apply(_patternMatcher.Search(text), textView);
+
+                    selectedItem.ProjectItem.Save();
+                }
+            }
+            else
+            {
+                var userData = GetUserData();
+
+                if (userData == null)
+                    return;
+
+                var textView = GetTextView(userData);
+                var text = textView.TextBuffer.CurrentSnapshot.GetText();
+
+                Apply(_patternMatcher.Search(text), textView);
+            }
+        }
+
+        private Microsoft.VisualStudio.TextManager.Interop.IVsTextView GetIVsTextView(String filePath)
+        {
+            var dte = GetService<SDTE, DTE2>();
+            ServiceProvider serviceProvider = new ServiceProvider((Microsoft.VisualStudio.OLE.Interop.IServiceProvider)dte);
+
+            IVsUIHierarchy uiHierarchy;
+            UInt32 itemID;
+            IVsWindowFrame windowFrame;
+            if (VsShellUtilities.IsDocumentOpen(serviceProvider, filePath, Guid.Empty, out uiHierarchy, out itemID, out windowFrame))
+                return VsShellUtilities.GetTextView(windowFrame);
+
+            return null;
         }
 
         private void OnExecuteInstallSnippets(Object sender, EventArgs e)
         {
-            var messageBoxResult = MessageBox.Show(SNIPPETS_INSTALL_QUESTION_DESCRIPTION, 
-                                                   SNIPPETS_INSTALL_QUESTION_TITLE, 
+            var messageBoxResult = MessageBox.Show(SNIPPETS_INSTALL_QUESTION_DESCRIPTION,
+                                                   SNIPPETS_INSTALL_QUESTION_TITLE,
                                                    MessageBoxButton.OKCancel);
 
             if (messageBoxResult == MessageBoxResult.Cancel)
@@ -164,7 +232,7 @@ namespace Brage.AliasBeGone
                 textEdit.Insert(0, USING_SYSTEM + Environment.NewLine);
 
             foreach (var patternHit in patternHits)
-                    textEdit.Replace(patternHit.StartPosition, patternHit.CharsToReplace, patternHit.ReplaceWith);
+                textEdit.Replace(patternHit.StartPosition, patternHit.CharsToReplace, patternHit.ReplaceWith);
 
             textEdit.Apply();
         }

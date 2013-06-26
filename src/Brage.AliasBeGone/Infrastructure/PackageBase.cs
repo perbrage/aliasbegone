@@ -15,7 +15,7 @@ namespace Brage.AliasBeGone.Infrastructure
             var textManager = GetService<SVsTextManager, IVsTextManager>();
             IVsTextView activeView;
             textManager.GetActiveView(MUST_HAVE_FOCUS, null, out activeView);
-
+            
             return activeView as IVsUserData;
         }
 

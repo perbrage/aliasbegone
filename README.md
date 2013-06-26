@@ -18,6 +18,9 @@ If you installed the bundled snippets you can develop using the alias names and 
 
 ### History
 
+* Version 0.7
+    * Now ignores matches in comments. (Thanks to Bill Robertson)
+
 * Version 0.6
     * Fixed a minor issue
     * Updated information about supporting VS2012
