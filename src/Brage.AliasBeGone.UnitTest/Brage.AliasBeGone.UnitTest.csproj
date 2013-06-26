@@ -61,6 +61,7 @@
     <Compile Include="InfrastructureTest\SnippetsManagerTest.cs" />
     <Compile Include="InfrastructureTest\ResourceReaderTest.cs" />
     <Compile Include="InfrastructureTest\Support\SnippetsManagerTestHarness.cs" />
+    <Compile Include="PatternMatchingTest\CommentedCodeIndexMapTests.cs" />
     <Compile Include="PatternMatchingTest\PatternHitTest.cs" />
     <Compile Include="InfrastructureTest\MapTest.cs" />
     <Compile Include="PatternMatchingTest\PatternMatcherTest.cs" />
