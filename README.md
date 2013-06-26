@@ -20,6 +20,7 @@ If you installed the bundled snippets you can develop using the alias names and 
 
 * Version 0.7
     * Now ignores matches in comments. (Thanks to Bill Robertson)
+    * Added support to selected one or more code files directly in the solution explorer and have them processed with same shortcut / menuitem as usual
 
 * Version 0.6
     * Fixed a minor issue
