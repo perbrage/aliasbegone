@@ -65,7 +65,7 @@ namespace Brage.AliasBeGone.Infrastructure
                                        ",{0}?", // Expression<Func<object,int?>>
                                        "<{0},", // Expression<Func<object, object>>
                                        "<{0} ", // Expression<Func<object , object>>
-                                       "[{0} ",  // this[string columnName]
+                                       "[{0} ", // this[string columnName]
 
                                        //All start combinations above with a trailing Carriage return
                                        "[{0}\r",
@@ -74,7 +74,12 @@ namespace Brage.AliasBeGone.Infrastructure
                                        " {0}\r",
                                        "({0}\r",
                                        "!{0}\r",
-                                       "<{0}\r"
+                                       "<{0}\r",
+
+                                       //Patterns for people using the 'Keep Tabs' option in Visual Studio
+                                       "\t{0} ",
+                                       "\t{0}[", // int[] i;
+                                       "\t{0}?", // int? x = 0;
                                    });
         }
 
